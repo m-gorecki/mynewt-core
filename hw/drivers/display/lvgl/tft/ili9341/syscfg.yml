@@ -1,0 +1,53 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+syscfg.defs:
+    ILI9341_SPI_DEV_NAME:
+        description: SPI device name that LCD is connected to.
+        value: '"spi0"'
+    ILI9341_MCU_INTERFACE:
+        description: ILI9341 communication interface selection.
+        choices:
+            - 4_wire_spi
+            - 8080_8_bit
+        value:
+    ILI9341_CS_PIN:
+        description: ILI9341 chip select pin for SPI or parallel port.
+        value:
+        restrictions: $notnull
+    ILI9341_DC_PIN:
+        description: ILI9341 command/data pin for SPI or parallel port.
+        value:
+        restrictions: $notnull
+    ILI9341_RESET_PIN:
+        description: ILI9341 command/data pin for SPI or parallel port.
+        value: -1
+    ILI9341_BL_PIN:
+        description: ILI9341 backlight pin.
+        value: -1
+        restrictions:
+    ILI9341_SPI_FREQ:
+        description: SPI device frequency for LCD
+        value: 8000
+    ILI9341_USE_BGR:
+        description: Configure color format to be BGR instead of RGB
+        value: 1
+
+syscfg.vals:
+    LVGL_DISPLAY_HORIZONTAL_RESOLUTION: 240
+    LVGL_DISPLAY_VERTICAL_RESOLUTION: 320
