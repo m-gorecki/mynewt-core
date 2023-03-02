@@ -65,6 +65,8 @@ pkg.deps.LVGL_ILI9486:
     - "@apache-mynewt-core/hw/drivers/display/lvgl/tft/ili9486"
 pkg.deps.LVGL_ST7735S:
     - "@apache-mynewt-core/hw/drivers/display/lvgl/tft/st7735s"
+pkg.deps.LVGL_XPT2046:
+    - "@apache-mynewt-core/hw/drivers/display/lvgl/touch/xpt2046"
 
 pkg.cflags:
     - -DLV_CONF_INCLUDE_SIMPLE=1
