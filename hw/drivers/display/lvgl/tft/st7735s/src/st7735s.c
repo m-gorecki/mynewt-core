@@ -164,7 +164,7 @@ st7735s_reset_pin_set(int val)
     }
 }
 
-#if MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi) || SHIFT_REGISTER_PRESENT
+#if MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi)
 static struct bus_spi_node lcd;
 static struct bus_spi_node_cfg lcd_spi_cfg = {
     .node_cfg.bus_name = MYNEWT_VAL(ST7735S_SPI_DEV_NAME),
@@ -179,28 +179,16 @@ static struct os_dev *lcd_dev;
 void
 st7735s_write_byte(uint8_t val)
 {
-#if SHIFT_REGISTER_PRESENT
-    uint8_t buf[2] = { 0, val };
-    bus_node_write(lcd_dev, buf, 2, 1000, BUS_F_NOSTOP);
-#elif MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi)
+#if  MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi)
     bus_node_write(lcd_dev, &val, 1, 1000, BUS_F_NOSTOP);
-#else
 #endif
 }
 
 void
 st7735s_write_bytes(const uint8_t *buf, int count)
 {
-#if SHIFT_REGISTER_PRESENT
-    uint16_t buf2[count];
-    int i;
-    for (i = 0; i < count; ++i) {
-        buf2[i] = htobe16(buf[i]);
-    }
-    bus_node_write(lcd_dev, buf2, count * 2, 1000, BUS_F_NOSTOP);
-#elif MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi)
+#if  MYNEWT_VAL_CHOICE(ST7735S_MCU_INTERFACE, 4_wire_spi)
     bus_node_write(lcd_dev, buf, count, 1000, BUS_F_NOSTOP);
-#else
 #endif
 }
 

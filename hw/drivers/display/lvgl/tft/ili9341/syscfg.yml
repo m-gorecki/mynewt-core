@@ -37,6 +37,10 @@ syscfg.defs:
     ILI9341_RESET_PIN:
         description: ILI9341 command/data pin for SPI or parallel port.
         value: -1
+    ILI9341_BL_PIN:
+        description: ILI9341 backlight pin.
+        value: -1
+        restrictions:
     ILI9341_SPI_FREQ:
         description: SPI device frequency for LCD
         value: 8000

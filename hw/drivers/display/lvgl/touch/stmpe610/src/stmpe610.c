@@ -90,6 +90,7 @@ static lv_indev_t *stmpe610_dev;
 /** Interrupt status **/
 #define STMPE_INT_STA               0x0B
 #define STMPE_INT_STA_TOUCHDET      0x01
+#define STMPE_INT_STA_FIFO_THT      0x02
 
 /** ADC control **/
 #define STMPE_ADC_CTRL1             0x20
@@ -250,24 +251,31 @@ stmpe610_read_reg8(uint8_t reg)
 static void
 stmpe610_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
 {
+    /* If there is not INT pin configured, assume int is active and read registers */
+    bool int_detected = MYNEWT_VAL(STMPE610_INT_PIN) < 0 || hal_gpio_read(MYNEWT_VAL(STMPE610_INT_PIN));
+    bool touch_detected = false;
+    uint8_t int_sta = 0;
     uint8_t buf[4];
 
     int16_t x = touch_screen_data.last_x;
     int16_t y = touch_screen_data.last_y;
 
-    if ((stmpe610_read_reg8(STMPE_TSC_CTRL) & STMPE_TSC_CTRL_TSC_STA) ||
-        !(stmpe610_read_reg8(STMPE_FIFO_STA) & STMPE_FIFO_STA_EMPTY)) {
-
+    if (int_detected) {
+        int_sta = stmpe610_read_reg8(STMPE_INT_STA);
+        /* Get only the last value from FIFO */
         buf[0] = STMPE_TSC_DATA | 0x80;
-        stmpe610_spi_write_then_read(buf, 1, buf + 1, 1);
-        stmpe610_spi_write_then_read(buf, 1, buf + 2, 1);
-        stmpe610_spi_write_then_read(buf, 1, buf + 3, 1);
-        x = buf[1] << 4 | (buf[2] >> 4);
-        y = ((buf[2] & 0xF) << 8) | buf[3];
+        while ((stmpe610_read_reg8(STMPE_FIFO_STA) & STMPE_FIFO_STA_EMPTY) == 0) {
+            stmpe610_spi_write_then_read(buf, 1, buf + 1, 1);
+            stmpe610_spi_write_then_read(buf, 1, buf + 2, 1);
+            stmpe610_spi_write_then_read(buf, 1, buf + 3, 1);
+            touch_detected = true;
+        };
 
-        data->continue_reading = !(stmpe610_read_reg8(STMPE_FIFO_STA) & STMPE_FIFO_STA_EMPTY);
+        if (touch_detected) {
+            x = buf[1] << 4 | (buf[2] >> 4);
+            y = ((buf[2] & 0xF) << 8) | buf[3];
 
-        xpt2046_corr(&x, &y);
+            xpt2046_corr(&x, &y);
 
         touch_screen_data.last_x = x;
         touch_screen_data.last_y = y;
@@ -275,7 +283,12 @@ stmpe610_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
     } else {
         data->state = LV_INDEV_STATE_RELEASED;
     }
+    if (int_sta) {
+        /* Clear raised interrupts */
+        stmpe610_write_reg8(STMPE_INT_STA, int_sta);
+    }
 
+    data->state = touch_detected ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
     data->point.x = x;
     data->point.y = y;
 }
@@ -298,7 +311,7 @@ stmpe610_register_lv_indev(void)
     /* Enable XY */
     stmpe610_write_reg8(STMPE_TSC_CTRL,
                    STMPE_TSC_CTRL_XY | STMPE_TSC_CTRL_EN);
-    stmpe610_write_reg8(STMPE_INT_EN, STMPE_INT_EN_TOUCHDET);
+    stmpe610_write_reg8(STMPE_INT_EN, STMPE_INT_EN_TOUCHDET | STMPE_INT_EN_FIFOTH);
     /* 96 clocks per conversion */
     stmpe610_write_reg8(STMPE_ADC_CTRL1, STMPE_ADC_CTRL1_10BIT |
                                     (0x6 << 4));
@@ -330,6 +343,9 @@ stmpe610_os_dev_create(void)
     struct bus_node_callbacks cbs = { 0 };
     int rc;
 
+    if (MYNEWT_VAL(STMPE610_INT_PIN) >= 0) {
+        hal_gpio_init_in(MYNEWT_VAL(STMPE610_INT_PIN), HAL_GPIO_PULL_NONE);
+    }
     hal_gpio_init_out(MYNEWT_VAL(STMPE610_SPI_CS_PIN), 1);
 
     bus_node_set_callbacks((struct os_dev *)&touch, &cbs);

@@ -26,7 +26,7 @@ syscfg.defs:
         restrictions: $notnull
     STMPE610_INT_PIN:
         description: STMPE610 interrupt pin.
-        value:
+        value: -1
     STMPE610_SPI_FREQ:
         description: SPI device frequency for LCD
         value: 1000

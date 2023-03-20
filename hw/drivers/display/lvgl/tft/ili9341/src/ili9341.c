@@ -539,8 +539,15 @@ mynewt_lv_drv_init(lv_disp_drv_t *driver)
     int rc;
     struct bus_node_callbacks cbs = {};
 
-    hal_gpio_init_out(MYNEWT_VAL(ILI9341_RESET_PIN), 1);
-    hal_gpio_init_out(MYNEWT_VAL(ILI9341_CS_PIN), 1);
+    if (MYNEWT_VAL(ILI9341_RESET_PIN) >= 0) {
+        hal_gpio_init_out(MYNEWT_VAL(ILI9341_RESET_PIN), 1);
+    }
+    if (MYNEWT_VAL(ILI9341_BL_PIN) >= 0) {
+        hal_gpio_init_out(MYNEWT_VAL(ILI9341_BL_PIN), 1);
+    }
+    if (MYNEWT_VAL(ILI9341_CS_PIN) >= 0) {
+        hal_gpio_init_out(MYNEWT_VAL(ILI9341_CS_PIN), 1);
+    }
     hal_gpio_init_out(MYNEWT_VAL(ILI9341_DC_PIN), 0);
 #if LV_COLOR_16_SWAP
     driver->color_format = LV_COLOR_FORMAT_NATIVE_REVERSE;
