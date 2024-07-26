@@ -21,6 +21,7 @@ NOTICE: This file has been modified by Nordic Semiconductor ASA.
 */
 
 #include "syscfg/syscfg.h"
+#include "nrf5340_application_name_change.h"
 
     .syntax unified
     .arch armv8-m.main

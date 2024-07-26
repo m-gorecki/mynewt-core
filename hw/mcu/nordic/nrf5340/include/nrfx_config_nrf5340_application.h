@@ -1109,7 +1109,12 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIM_ENABLED
+#if MYNEWT_VAL(SPI_0_MASTER) || MYNEWT_VAL(SPI_1_MASTER) || \
+    MYNEWT_VAL(SPI_2_MASTER) || MYNEWT_VAL(SPI_3_MASTER) || MYNEWT_VAL(SPI_4_MASTER)
+#define NRFX_SPIM_ENABLED 1
+#else
 #define NRFX_SPIM_ENABLED 0
+#endif
 #endif
 
 /**
@@ -1151,7 +1156,7 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIM0_ENABLED
-#define NRFX_SPIM0_ENABLED 0
+#define NRFX_SPIM0_ENABLED 1
 #endif
 
 /**
@@ -1196,7 +1201,12 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIS_ENABLED
+#if MYNEWT_VAL(SPI_0_SLAVE) || MYNEWT_VAL(SPI_1_SLAVE) || \
+    MYNEWT_VAL(SPI_2_SLAVE) || MYNEWT_VAL(SPI_3_SLAVE)
+#define NRFX_SPIS_ENABLED 1
+#else
 #define NRFX_SPIS_ENABLED 0
+#endif
 #endif
 
 /**
@@ -1238,7 +1248,11 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIS0_ENABLED
+#if MYNEWT_VAL(SPI_0_SLAVE)
+#define NRFX_SPIS0_ENABLED 1
+#else
 #define NRFX_SPIS0_ENABLED 0
+#endif
 #endif
 
 /**
@@ -1247,7 +1261,11 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIS1_ENABLED
+#if MYNEWT_VAL(SPI_1_SLAVE)
+#define NRFX_SPIS1_ENABLED 1
+#else
 #define NRFX_SPIS1_ENABLED 0
+#endif
 #endif
 
 /**
@@ -1256,7 +1274,11 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIS2_ENABLED
+#if MYNEWT_VAL(SPI_2_SLAVE)
+#define NRFX_SPIS2_ENABLED 1
+#else
 #define NRFX_SPIS2_ENABLED 0
+#endif
 #endif
 
 /**
@@ -1265,7 +1287,11 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_SPIS3_ENABLED
+#if MYNEWT_VAL(SPI_3_SLAVE)
+#define NRFX_SPIS3_ENABLED 1
+#else
 #define NRFX_SPIS3_ENABLED 0
+#endif
 #endif
 
 /**
