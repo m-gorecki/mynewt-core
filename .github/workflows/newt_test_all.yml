@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-13]
+        os: [macos-13]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -62,4 +62,33 @@ jobs:
       - name: newt test all
         run: |
              cd build
-             newt test all
+             newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 1
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 2
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 3
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 4
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 5
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 6
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+      - name: newt test all 7
+        run: |
+          cd build
+          newt test @apache-mynewt-core/kernel/os/selftest
+
