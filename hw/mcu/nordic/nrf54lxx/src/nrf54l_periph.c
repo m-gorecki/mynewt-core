@@ -34,6 +34,12 @@
 #include "pwm_nrf5x/pwm_nrf5x.h"
 #endif
 
+#if MYNEWT_VAL(I2C_0) || MYNEWT_VAL(I2C_1) || MYNEWT_VAL(I2C_2)
+#include <bus/drivers/i2c_common.h>
+#include <bus/drivers/i2c_nrf54lxx.h>
+#endif
+
+
 #if MYNEWT_VAL(UART_0)
 static struct uart_dev os_bsp_uart0;
 static const struct nrf54l_uart_cfg os_bsp_uart0_cfg = {
@@ -72,6 +78,33 @@ static struct pwm_dev os_bsp_pwm1;
 
 #if MYNEWT_VAL(PWM_2)
 static struct pwm_dev os_bsp_pwm2;
+#endif
+
+#if MYNEWT_VAL(I2C_0)
+static const struct bus_i2c_dev_cfg i2c0_cfg = {
+        .i2c_num = 0,
+        .pin_sda = MYNEWT_VAL(I2C_0_PIN_SDA),
+        .pin_scl = MYNEWT_VAL(I2C_0_PIN_SCL),
+};
+static struct bus_i2c_dev i2c0_bus;
+#endif
+
+#if MYNEWT_VAL(I2C_1)
+static const struct bus_i2c_dev_cfg i2c1_cfg = {
+        .i2c_num = 1,
+        .pin_sda = MYNEWT_VAL(I2C_1_PIN_SDA),
+        .pin_scl = MYNEWT_VAL(I2C_1_PIN_SCL),
+};
+static struct bus_i2c_dev i2c1_bus;
+#endif
+
+#if MYNEWT_VAL(I2C_2)
+static const struct bus_i2c_dev_cfg i2c2_cfg = {
+        .i2c_num = 2,
+        .pin_sda = MYNEWT_VAL(I2C_2_PIN_SDA),
+        .pin_scl = MYNEWT_VAL(I2C_2_PIN_SCL),
+};
+static struct bus_i2c_dev i2c2_bus;
 #endif
 
 static void
@@ -166,10 +199,37 @@ nrf54l_periph_create_pwm(void)
 #endif
 }
 
+static void
+nrf5340_periph_create_i2c(void)
+{
+    int rc;
+
+    (void)rc;
+
+#if MYNEWT_VAL(I2C_0)
+    rc = bus_i2c_nrf54lxx_dev_create("i2c0", &i2c0_bus,
+                                    (struct bus_i2c_dev_cfg *)&i2c0_cfg);
+    assert(rc == 0);
+#endif
+
+#if MYNEWT_VAL(I2C_1)
+    rc = bus_i2c_nrf54lxx_dev_create("i2c1", &i2c1_bus,
+                                     (struct bus_i2c_dev_cfg *)&i2c1_cfg);
+    assert(rc == 0);
+#endif
+
+#if MYNEWT_VAL(I2C_2)
+    rc = bus_i2c_nrf54lxx_dev_create("i2c2", &i2c2_bus,
+                                     (struct bus_i2c_dev_cfg *)&i2c2_cfg);
+    assert(rc == 0);
+#endif
+}
+
 void
 nrf54l_periph_create(void)
 {
     nrf54_periph_create_timers();
     nrf54_periph_create_uart();
     nrf54l_periph_create_pwm();
+    nrf5340_periph_create_i2c();
 }
