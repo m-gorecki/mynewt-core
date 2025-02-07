@@ -27,14 +27,6 @@ extern "C" {
 #include <nrfx_config.h>
 #include "nrf_hal.h"
 
-struct nrf5340_uart_cfg {
-    int8_t suc_pin_tx;                          /* pins for IO */
-    int8_t suc_pin_rx;
-    int8_t suc_pin_rts;
-    int8_t suc_pin_cts;
-};
-const struct nrf5340_uart_cfg *bsp_uart_config(void);
-
 extern const struct hal_flash nrf5340_qspi_dev;
 extern const struct hal_flash *ipc_flash(void);
 

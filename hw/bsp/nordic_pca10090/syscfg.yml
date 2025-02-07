@@ -71,3 +71,6 @@ syscfg.vals:
     MCU_LFCLK_SOURCE: LFXO
     BOOT_SERIAL_DETECT_PIN: 6  # Button 1
     CONSOLE_UART_DEV: '"uart1"'
+
+syscfg.vals.BOOT_LOADER:
+    UART_1: 0

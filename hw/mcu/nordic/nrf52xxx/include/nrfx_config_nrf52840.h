@@ -88,6 +88,18 @@
 #define NRFX_PWM3_ENABLED 1
 #endif
 
+#if MYNEWT_VAL(UART_0) || MYNEWT_VAL(UART_1)
+#define NRFX_UARTE_ENABLED 1
+
+#if MYNEWT_VAL(UART_0)
+#define NRFX_UARTE0_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_1)
+#define NRFX_UARTE1_ENABLED 1
+#endif
+#endif
+
 #if MYNEWT_PKG_apache_mynewt_core__hw_drivers_i2s_i2s_nrf52
 #define NRFX_I2S_ENABLED 1
 #endif

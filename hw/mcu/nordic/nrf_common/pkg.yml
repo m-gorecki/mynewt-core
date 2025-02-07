@@ -31,3 +31,7 @@ pkg.keywords:
 pkg.deps:
   - "@apache-mynewt-core/hw/hal"
   - "@apache-mynewt-core/hw/cmsis-core"
+
+pkg.cflags:
+  #  nrfx_uarte driver causes build error
+  - -Wno-error=unused-variable

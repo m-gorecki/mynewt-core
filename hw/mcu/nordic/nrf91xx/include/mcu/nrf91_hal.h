@@ -26,14 +26,6 @@ extern "C" {
 
 #include "nrf_hal.h"
 
-struct nrf91_uart_cfg {
-    int8_t suc_pin_tx;                          /* pins for IO */
-    int8_t suc_pin_rx;
-    int8_t suc_pin_rts;
-    int8_t suc_pin_cts;
-};
-const struct nrf91_uart_cfg *bsp_uart_config(void);
-
 struct nrf91_hal_i2c_cfg {
     int scl_pin;
     int sda_pin;

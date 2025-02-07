@@ -40,6 +40,26 @@
 
 #include "syscfg/syscfg.h"
 
+#if MYNEWT_VAL(UART_0) || MYNEWT_VAL(UART_1) || MYNEWT_VAL(UART_2) || MYNEWT_VAL(UART_3)
+#define NRFX_UARTE_ENABLED 1
+
+#if MYNEWT_VAL(UART_0)
+#define NRFX_UARTE0_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_1)
+#define NRFX_UARTE1_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_2)
+#define NRFX_UARTE2_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_3)
+#define NRFX_UARTE3_ENABLED 1
+#endif
+#endif
+
 /*
  * The MDK provides macros for accessing the peripheral register structures
  * by using their secure and non-secure address mappings (with the names
@@ -558,6 +578,26 @@
 #define NRFX_PWM_ENABLED 1
 #endif
 
+#endif
+
+#if MYNEWT_VAL(UART_0) || MYNEWT_VAL(UART_1) || MYNEWT_VAL(UART_2) || MYNEWT_VAL(UART_3)
+#define NRFX_UARTE_ENABLED 1
+
+#if MYNEWT_VAL(UART_0)
+#define NRFX_UARTE0_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_1)
+#define NRFX_UARTE1_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_2)
+#define NRFX_UARTE2_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_3)
+#define NRFX_UARTE3_ENABLED 1
+#endif
 #endif
 
 /**

@@ -79,3 +79,6 @@ syscfg.vals.BLE_CONTROLLER:
 
 syscfg.vals.BLE_TRANSPORT:
     BLE_TRANSPORT_HS: nrf5340
+
+syscfg.vals.BOOT_LOADER:
+    UART_0: 0

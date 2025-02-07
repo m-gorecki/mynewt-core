@@ -46,7 +46,7 @@
 
 #if MYNEWT_VAL(UART_0)
 static struct uart_dev os_bsp_uart0;
-static const struct nrf5340_net_uart_cfg os_bsp_uart0_cfg = {
+static const struct nrf_uart_cfg os_bsp_uart0_cfg = {
     .suc_pin_tx = MYNEWT_VAL(UART_0_PIN_TX),
     .suc_pin_rx = MYNEWT_VAL(UART_0_PIN_RX),
     .suc_pin_rts = MYNEWT_VAL(UART_0_PIN_RTS),

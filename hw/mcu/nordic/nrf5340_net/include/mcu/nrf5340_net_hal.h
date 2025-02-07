@@ -27,14 +27,6 @@ extern "C" {
 #include <hal/hal_flash_int.h>
 #include "nrf_hal.h"
 
-struct nrf5340_net_uart_cfg {
-    int8_t suc_pin_tx;                          /* pins for IO */
-    int8_t suc_pin_rx;
-    int8_t suc_pin_rts;
-    int8_t suc_pin_cts;
-};
-const struct nrf5340_net_uart_cfg *bsp_uart_config(void);
-
 struct nrf5340_vflash {
     struct hal_flash nv_flash;
     const uint8_t *nv_image_address;

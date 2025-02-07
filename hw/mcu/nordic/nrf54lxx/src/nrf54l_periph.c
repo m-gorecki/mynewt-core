@@ -36,7 +36,7 @@
 
 #if MYNEWT_VAL(UART_0)
 static struct uart_dev os_bsp_uart0;
-static const struct nrf54l_uart_cfg os_bsp_uart0_cfg = {
+static const struct nrf_uart_cfg os_bsp_uart0_cfg = {
     .suc_pin_tx = MYNEWT_VAL(UART_0_PIN_TX),
     .suc_pin_rx = MYNEWT_VAL(UART_0_PIN_RX),
     .suc_pin_rts = MYNEWT_VAL(UART_0_PIN_RTS),
@@ -45,7 +45,7 @@ static const struct nrf54l_uart_cfg os_bsp_uart0_cfg = {
 #endif
 #if MYNEWT_VAL(UART_1)
 static struct uart_dev os_bsp_uart1;
-static const struct nrf54l_uart_cfg os_bsp_uart1_cfg = {
+static const struct nrf_uart_cfg os_bsp_uart1_cfg = {
     .suc_pin_tx = MYNEWT_VAL(UART_1_PIN_TX),
     .suc_pin_rx = MYNEWT_VAL(UART_1_PIN_RX),
     .suc_pin_rts = MYNEWT_VAL(UART_1_PIN_RTS),
@@ -54,7 +54,7 @@ static const struct nrf54l_uart_cfg os_bsp_uart1_cfg = {
 #endif
 #if MYNEWT_VAL(UART_2)
 static struct uart_dev os_bsp_uart2;
-static const struct nrf54l_uart_cfg os_bsp_uart2_cfg = {
+static const struct nrf_uart_cfg os_bsp_uart2_cfg = {
     .suc_pin_tx = MYNEWT_VAL(UART_2_PIN_TX),
     .suc_pin_rx = MYNEWT_VAL(UART_2_PIN_RX),
     .suc_pin_rts = MYNEWT_VAL(UART_2_PIN_RTS),

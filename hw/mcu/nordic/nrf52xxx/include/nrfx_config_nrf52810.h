@@ -115,6 +115,12 @@
 #define NRFX_PWM0_ENABLED 1
 #endif
 
+#if MYNEWT_VAL(UART_0)
+#define NRFX_UARTE_ENABLED 1
+
+#define NRFX_UARTE0_ENABLED 1
+#endif
+
 /**
  * @brief NRFX_DEFAULT_IRQ_PRIORITY
  *

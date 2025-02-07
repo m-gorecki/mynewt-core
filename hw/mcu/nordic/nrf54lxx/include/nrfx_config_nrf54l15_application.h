@@ -56,6 +56,22 @@
 #endif
 #endif
 
+#if MYNEWT_VAL(UART_0) || MYNEWT_VAL(UART_1) || MYNEWT_VAL(UART_2)
+#define NRFX_UARTE_ENABLED 1
+
+#if MYNEWT_VAL(UART_0)
+#define NRFX_UARTE20_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_1)
+#define NRFX_UARTE21_ENABLED 1
+#endif
+
+#if MYNEWT_VAL(UART_2)
+#define NRFX_UARTE22_ENABLED 1
+#endif
+#endif
+
 
 /**
  * @brief NRFX_DEFAULT_IRQ_PRIORITY
@@ -1637,7 +1653,7 @@
  * Boolean. Accepted values: 0 and 1.
  */
 #ifndef NRFX_UARTE_ENABLED
-#define NRFX_UARTE_ENABLED 0
+#define NRFX_UARTE_ENABLED 1
 #endif
 
 /**

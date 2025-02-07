@@ -38,6 +38,13 @@
         }                                               \
     } while(0);
 
+struct nrf_uart_cfg {
+    int8_t suc_pin_tx;                          /* pins for IO */
+    int8_t suc_pin_rx;
+    int8_t suc_pin_rts;
+    int8_t suc_pin_cts;
+};
+
 struct hal_flash;
 extern const struct hal_flash nrf_flash_dev;
 extern const struct hal_flash nrf_qspi_dev;
